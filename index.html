@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>БК Журнал</title>
+<title>ЖУРНАЛ</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -80,7 +80,6 @@ body {
   transition: background .3s, color .3s;
 }
 
-/* scanline — тільки вночі */
 [data-theme="night"] body::before {
   content: '';
   position: fixed; inset: 0;
@@ -123,16 +122,6 @@ body {
 }
 
 .header-left { padding-left: 8px; }
-
-.header-label {
-  font-family: 'Oswald', sans-serif;
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-  transition: color .3s;
-}
 
 .header-title {
   font-family: 'Oswald', sans-serif;
@@ -299,12 +288,21 @@ select {
   border-radius: 3px;
   color: var(--text);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
   padding: 9px 10px;
   outline: none;
   transition: border-color .15s, background .3s, color .3s;
   -webkit-appearance: none;
   appearance: none;
+  text-align: right;
+}
+
+/* Стиль для placeholder */
+input[type="number"]::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+  font-weight: normal;
 }
 
 [data-theme="day"] input[type="number"],
@@ -326,8 +324,17 @@ input:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(58,122,32,.15);
 }
 
-input[type="number"] { text-align: right; font-size: 18px; font-weight: bold; }
 select { cursor: pointer; }
+input[type="number"] { 
+  text-align: right; 
+  font-size: 18px; 
+  font-weight: bold;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.5;
+}
 
 [data-theme="night"] select option { background: #141814; }
 [data-theme="day"]   select option { background: #ffffff; color: #0a1a06; }
@@ -342,7 +349,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: none;
 }
 
-/* Skeleton */
 .skel {
   flex: 1;
   background: var(--input-bg);
@@ -399,14 +405,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .ammo-ctrl { display: flex; align-items: center; gap: 6px; }
-.ammo-ctrl input { width: 80px; flex: none; }
+.ammo-ctrl input { width: 90px; flex: none; }
 
 .btn-pm {
   background: var(--surface);
   border: 2px solid var(--border-strong);
   color: var(--text2);
-  width: 34px; height: 34px;
-  font-size: 20px;
+  width: 40px; height: 40px;
+  font-size: 22px;
   cursor: pointer;
   border-radius: 3px;
   display: flex; align-items: center; justify-content: center;
@@ -682,14 +688,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 <body>
 <div class="container">
 
-  <!-- HEADER з перемикачем -->
   <div class="header">
     <div class="header-left">
-      <div class="header-label">Облік боєприпасів</div>
-      <div class="header-title">БК ЖУРНАЛ <span class="cursor"></span></div>
+      <div class="header-title">ЖУРНАЛ <span class="cursor"></span></div>
     </div>
 
-    <!-- Перемикач день/ніч -->
     <div class="theme-toggle" onclick="toggleTheme()" title="Перемикач день/ніч">
       <div class="toggle-track">
         <div class="toggle-icons">
@@ -702,7 +705,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     </div>
   </div>
 
-  <!-- Реквізити -->
   <div class="card">
     <div class="section-label">Реквізити</div>
     <div class="field-row">
@@ -717,7 +719,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     </div>
   </div>
 
-  <!-- Використано набоїв -->
   <div class="card">
     <div class="section-label">Використано набоїв</div>
 
@@ -725,7 +726,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       <div><span class="ammo-name">МДЗ</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
         <button class="btn-pm" onclick="dec('mdz')">−</button>
-        <input type="number" id="mdz" value="0" min="0">
+        <input type="number" id="mdz" value="" placeholder="0" min="0" step="1">
         <button class="btn-pm" onclick="inc('mdz')">+</button>
       </div>
     </div>
@@ -733,7 +734,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       <div><span class="ammo-name">БЗТ</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
         <button class="btn-pm" onclick="dec('bzt')">−</button>
-        <input type="number" id="bzt" value="0" min="0">
+        <input type="number" id="bzt" value="" placeholder="0" min="0" step="1">
         <button class="btn-pm" onclick="inc('bzt')">+</button>
       </div>
     </div>
@@ -741,7 +742,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       <div><span class="ammo-name">Б32</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
         <button class="btn-pm" onclick="dec('b32')">−</button>
-        <input type="number" id="b32" value="0" min="0">
+        <input type="number" id="b32" value="" placeholder="0" min="0" step="1">
         <button class="btn-pm" onclick="inc('b32')">+</button>
       </div>
     </div>
@@ -749,7 +750,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       <div><span class="ammo-name">ПС</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
         <button class="btn-pm" onclick="dec('ps')">−</button>
-        <input type="number" id="ps" value="0" min="0">
+        <input type="number" id="ps" value="" placeholder="0" min="0" step="1">
         <button class="btn-pm" onclick="inc('ps')">+</button>
       </div>
     </div>
@@ -757,7 +758,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       <div><span class="ammo-name">ТЗ</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
         <button class="btn-pm" onclick="dec('tz')">−</button>
-        <input type="number" id="tz" value="0" min="0">
+        <input type="number" id="tz" value="" placeholder="0" min="0" step="1">
         <button class="btn-pm" onclick="inc('tz')">+</button>
       </div>
     </div>
@@ -773,7 +774,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   </button>
   <div class="send-status" id="sendStatus"></div>
 
-  <!-- Не надали відомості -->
   <div class="missing-card">
     <div class="missing-head">
       <span class="missing-title">⚠ Не надали відомості</span>
@@ -792,7 +792,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 </div>
 <script>
 // ═══════════════════════════════════════════════════════
-// ВСТАВТЕ URL ВАШОГО APPS SCRIPT
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoIRezYwaFnYER3JtaVLiU1dHJ9e3qEMdS495mRxXj2dg660Cp1BzJW0xIMPgDnBQp/exec';
 // ═══════════════════════════════════════════════════════
 
@@ -809,7 +808,6 @@ function toggleTheme() {
   try { localStorage.setItem('bk_theme', next); } catch(e){}
 }
 
-// Відновити тему
 (function(){
   try {
     const saved = localStorage.getItem('bk_theme');
@@ -833,22 +831,70 @@ function isoToUa(v) {
   return `${d}.${m}.${y}`;
 }
 
-// ── +/- ───────────────────────────────────────────────
+// ── Функції для полів з placeholder "0" ───────────────
+function getInputValue(id) {
+  const el = document.getElementById(id);
+  const val = el.value;
+  if (val === '') return 0;
+  return parseInt(val) || 0;
+}
+
 function inc(id) {
   const e = document.getElementById(id);
-  e.value = (parseInt(e.value) || 0) + 1; recalc();
+  let val = getInputValue(id);
+  e.value = val + 1;
+  recalc();
 }
+
 function dec(id) {
   const e = document.getElementById(id);
-  const v = (parseInt(e.value) || 0) - 1;
-  e.value = v < 0 ? 0 : v; recalc();
+  let val = getInputValue(id);
+  const newVal = val - 1;
+  e.value = newVal < 0 ? 0 : newVal;
+  if (newVal < 0) e.value = '';
+  recalc();
 }
+
+// Очищення поля при фокусі, якщо там 0 або пусто
+function setupAutoClearOnFocus() {
+  AMMO.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    
+    el.addEventListener('focus', function() {
+      if (this.value === '0' || this.value === '') {
+        this.value = '';
+      }
+    });
+    
+    el.addEventListener('blur', function() {
+      if (this.value === '' || this.value === null) {
+        this.value = '';
+      } else {
+        let num = parseInt(this.value);
+        if (isNaN(num) || num < 0) num = 0;
+        if (num === 0) {
+          this.value = '';
+        } else {
+          this.value = num;
+        }
+      }
+      recalc();
+    });
+    
+    el.addEventListener('input', function() {
+      recalc();
+    });
+  });
+}
+
 function recalc() {
   let t = 0;
-  AMMO.forEach(id => t += parseInt(document.getElementById(id).value) || 0);
+  AMMO.forEach(id => {
+    t += getInputValue(id);
+  });
   document.getElementById('total').textContent = t;
 }
-AMMO.forEach(id => document.getElementById(id).addEventListener('input', recalc));
 
 // ── Select екіпажів ───────────────────────────────────
 function renderCrewSelect(crews) {
@@ -892,7 +938,10 @@ function renderMissing(list) {
 // ── Завантажити з таблиці ─────────────────────────────
 async function loadData() {
   const btn = document.getElementById('btnRefresh');
-  btn.disabled = true; btn.textContent = '↻ ...';
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '↻ ...';
+  }
   document.getElementById('missingList').innerHTML = '<div class="msg warn">⏳ завантаження...</div>';
 
   try {
@@ -903,13 +952,17 @@ async function loadData() {
     if (data.crews && !document.getElementById('crew')) renderCrewSelect(data.crews);
     renderMissing(data.missing ?? null);
   } catch(e) {
+    console.error(e);
     renderMissing(null);
     if (!document.getElementById('crew')) {
       document.getElementById('crewWrap').innerHTML =
         '<div class="skel" style="color:var(--danger)">⚠ помилка з\'єднання</div>';
     }
   } finally {
-    btn.disabled = false; btn.textContent = '↻ ОНОВИТИ';
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '↻ ОНОВИТИ';
+    }
   }
 }
 
@@ -926,11 +979,11 @@ async function sendData() {
     action: 'submit',
     date:   isoToUa(dateVal),
     crew:   crewEl.value,
-    mdz:    parseInt(document.getElementById('mdz').value) || 0,
-    bzt:    parseInt(document.getElementById('bzt').value) || 0,
-    b32:    parseInt(document.getElementById('b32').value) || 0,
-    ps:     parseInt(document.getElementById('ps').value)  || 0,
-    tz:     parseInt(document.getElementById('tz').value)  || 0,
+    mdz:    getInputValue('mdz'),
+    bzt:    getInputValue('bzt'),
+    b32:    getInputValue('b32'),
+    ps:     getInputValue('ps'),
+    tz:     getInputValue('tz'),
   };
 
   document.getElementById('btnSend').disabled = true;
@@ -943,10 +996,14 @@ async function sendData() {
       body: JSON.stringify(payload)
     });
     showSend('ok', `✓ Записано: екіпаж ${payload.crew} · ${payload.date}`);
-    AMMO.forEach(id => document.getElementById(id).value = 0);
+    AMMO.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
     recalc();
     setTimeout(loadData, 1800);
   } catch(e) {
+    console.error(e);
     showSend('err','✗ Помилка зʼєднання. Перевірте URL скрипту.');
   } finally {
     document.getElementById('btnSend').disabled = false;
@@ -968,13 +1025,17 @@ function tick() {
 tick(); setInterval(tick, 30000);
 
 // ── Оновлення при зміні дати ──────────────────────────
-document.getElementById('date').addEventListener('change', () => {
-  document.getElementById('missingList').innerHTML = '<div class="msg warn">⏳ завантаження...</div>';
-  loadData();
-});
+const dateInput = document.getElementById('date');
+if (dateInput) {
+  dateInput.addEventListener('change', () => {
+    document.getElementById('missingList').innerHTML = '<div class="msg warn">⏳ завантаження...</div>';
+    loadData();
+  });
+}
 
 // ── Init ──────────────────────────────────────────────
-document.getElementById('date').value = todayISO();
+if (dateInput) dateInput.value = todayISO();
+setupAutoClearOnFocus();
 loadData();
 setInterval(loadData, 120000);
 </script>
