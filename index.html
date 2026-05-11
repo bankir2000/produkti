@@ -435,13 +435,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* ══════════════════════════════════════
-   TOTAL ROW
+   TOTAL ROWS (окремі)
 ══════════════════════════════════════ */
 .total-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 14px;
+  padding: 10px 14px;
   background: var(--total-bg);
   border: 2px solid var(--accent2);
   border-radius: 2px;
@@ -456,7 +456,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .total-lbl {
   font-family: 'Oswald', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--muted);
   letter-spacing: 3px;
   transition: color .3s;
@@ -464,13 +464,28 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .total-val {
   font-family: 'Oswald', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--accent2);
   transition: color .3s;
 }
 
 [data-theme="day"] .total-val { color: var(--accent); }
+
+/* Спеціальний стиль для великого тоталу */
+.total-row-large .total-val {
+  font-size: 24px;
+}
+
+.total-row-large {
+  margin-bottom: 12px;
+}
+
+.separator {
+  border-top: 2px dashed var(--border);
+  margin: 12px 0 0 0;
+  opacity: 0.5;
+}
 
 /* ══════════════════════════════════════
    SUBMIT BUTTON
@@ -721,6 +736,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   <div class="card">
     <div class="section-label">Використано набоїв</div>
 
+    <!-- Група великого калібру -->
     <div class="ammo-row">
       <div><span class="ammo-name">МДЗ</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
@@ -745,7 +761,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         <button class="btn-pm" onclick="inc('b32')">+</button>
       </div>
     </div>
-    <div class="ammo-row">
+
+    <!-- ВСЬОГО для великого калібру -->
+    <div class="total-row total-row-large" style="border-color: var(--accent2);">
+      <span class="total-lbl">ВСЬОГО (14.5мм)</span>
+      <span class="total-val" id="totalLarge">0</span>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- Група малого калібру -->
+    <div class="ammo-row" style="margin-top: 12px;">
       <div><span class="ammo-name">ПС</span><span class="ammo-unit">шт</span></div>
       <div class="ammo-ctrl">
         <button class="btn-pm" onclick="dec('ps')">−</button>
@@ -762,9 +788,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       </div>
     </div>
 
+    <!-- ВСЬОГО для малого калібру -->
     <div class="total-row">
-      <span class="total-lbl">ВСЬОГО</span>
-      <span class="total-val" id="total">0</span>
+      <span class="total-lbl">ВСЬОГО (5.45мм)</span>
+      <span class="total-val" id="totalSmall">0</span>
     </div>
   </div>
 
@@ -794,10 +821,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoIRezYwaFnYER3JtaVLiU1dHJ9e3qEMdS495mRxXj2dg660Cp1BzJW0xIMPgDnBQp/exec';
 // ═══════════════════════════════════════════════════════
 
-const AMMO = ['mdz','bzt','b32','ps','tz'];
+const AMMO_LARGE = ['mdz', 'bzt', 'b32'];  // великий калібр (14.5мм)
+const AMMO_SMALL = ['ps', 'tz'];           // малий калібр (5.45мм)
+const AMMO_ALL = [...AMMO_LARGE, ...AMMO_SMALL];
 const API_KEY = 'BK2026';
 const STORAGE_CREW_KEY = 'bk_selected_crew';
-let currentCrewList = []; // зберігаємо список екіпажів для перевірки
+let currentCrewList = [];
 
 // ── Тема день/ніч ─────────────────────────────────────
 function toggleTheme() {
@@ -832,7 +861,7 @@ function isoToUa(v) {
   return `${d}.${m}.${y}`;
 }
 
-// ── Функції для полів з placeholder "0" ───────────────
+// ── Функції для полів ─────────────────────────────────
 function getInputValue(id) {
   const el = document.getElementById(id);
   const val = el.value;
@@ -856,8 +885,24 @@ function dec(id) {
   recalc();
 }
 
+function recalc() {
+  // Розрахунок для великого калібру (14.5мм)
+  let totalLarge = 0;
+  AMMO_LARGE.forEach(id => {
+    totalLarge += getInputValue(id);
+  });
+  document.getElementById('totalLarge').textContent = totalLarge;
+  
+  // Розрахунок для малого калібру (5.45мм)
+  let totalSmall = 0;
+  AMMO_SMALL.forEach(id => {
+    totalSmall += getInputValue(id);
+  });
+  document.getElementById('totalSmall').textContent = totalSmall;
+}
+
 function setupAutoClearOnFocus() {
-  AMMO.forEach(id => {
+  AMMO_ALL.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     
@@ -888,14 +933,6 @@ function setupAutoClearOnFocus() {
   });
 }
 
-function recalc() {
-  let t = 0;
-  AMMO.forEach(id => {
-    t += getInputValue(id);
-  });
-  document.getElementById('total').textContent = t;
-}
-
 // ── Збереження/відновлення екіпажу ───────────────────
 function saveSelectedCrew(crewValue) {
   if (crewValue) {
@@ -913,19 +950,7 @@ function getSavedCrew() {
   }
 }
 
-// Встановити вибраний екіпаж (якщо він є в списку)
-function setSelectedCrewIfExists(crewValue) {
-  const crewSelect = document.getElementById('crew');
-  if (!crewSelect) return false;
-  
-  if (crewValue && currentCrewList.includes(crewValue)) {
-    crewSelect.value = crewValue;
-    return true;
-  }
-  return false;
-}
-
-// ── Select екіпажів (оновлено з підтримкою збереження) ──
+// ── Select екіпажів ───────────────────────────────────
 function renderCrewSelect(crews) {
   const wrap = document.getElementById('crewWrap');
   if (!crews || crews.length === 0) {
@@ -933,7 +958,7 @@ function renderCrewSelect(crews) {
     return;
   }
   
-  currentCrewList = crews; // зберігаємо список
+  currentCrewList = crews;
   
   const sel = document.createElement('select');
   sel.id = 'crew';
@@ -952,13 +977,11 @@ function renderCrewSelect(crews) {
   wrap.innerHTML = '';
   wrap.appendChild(sel);
   
-  // Спроба відновити збережений екіпаж
   const savedCrew = getSavedCrew();
   if (savedCrew && crews.includes(savedCrew)) {
     sel.value = savedCrew;
   }
   
-  // Зберігаємо при зміні вибору
   sel.addEventListener('change', function() {
     if (this.value) {
       saveSelectedCrew(this.value);
@@ -1001,11 +1024,9 @@ async function loadData() {
     if (data.crews && !document.getElementById('crew')) {
       renderCrewSelect(data.crews);
     } else if (data.crews && document.getElementById('crew')) {
-      // Якщо список вже є, але треба оновити (на випадок зміни списку)
       currentCrewList = data.crews;
       const currentSelect = document.getElementById('crew');
       const currentValue = currentSelect.value;
-      // Оновлюємо опції
       const ph = currentSelect.querySelector('option[value=""]');
       currentSelect.innerHTML = '';
       currentSelect.appendChild(ph);
@@ -1014,7 +1035,6 @@ async function loadData() {
         o.value = o.textContent = String(num);
         currentSelect.appendChild(o);
       });
-      // Відновлюємо значення, якщо воно ще існує
       if (currentValue && data.crews.includes(currentValue)) {
         currentSelect.value = currentValue;
       } else {
@@ -1070,7 +1090,7 @@ async function sendData() {
       body: JSON.stringify(payload)
     });
     showSend('ok', `✓ Записано: екіпаж ${payload.crew} · ${payload.date}`);
-    AMMO.forEach(id => {
+    AMMO_ALL.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
@@ -1110,6 +1130,7 @@ if (dateInput) {
 // ── Init ──────────────────────────────────────────────
 if (dateInput) dateInput.value = todayISO();
 setupAutoClearOnFocus();
+recalc();
 loadData();
 setInterval(loadData, 120000);
 </script>
