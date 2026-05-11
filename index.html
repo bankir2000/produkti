@@ -298,7 +298,6 @@ select {
   text-align: right;
 }
 
-/* Стиль для placeholder */
 input[type="number"]::placeholder {
   color: var(--muted);
   opacity: 0.6;
@@ -797,6 +796,8 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoIRezYwaFnYER3JtaV
 
 const AMMO = ['mdz','bzt','b32','ps','tz'];
 const API_KEY = 'BK2026';
+const STORAGE_CREW_KEY = 'bk_selected_crew';
+let currentCrewList = []; // зберігаємо список екіпажів для перевірки
 
 // ── Тема день/ніч ─────────────────────────────────────
 function toggleTheme() {
@@ -855,7 +856,6 @@ function dec(id) {
   recalc();
 }
 
-// Очищення поля при фокусі, якщо там 0 або пусто
 function setupAutoClearOnFocus() {
   AMMO.forEach(id => {
     const el = document.getElementById(id);
@@ -896,26 +896,75 @@ function recalc() {
   document.getElementById('total').textContent = t;
 }
 
-// ── Select екіпажів ───────────────────────────────────
+// ── Збереження/відновлення екіпажу ───────────────────
+function saveSelectedCrew(crewValue) {
+  if (crewValue) {
+    try {
+      localStorage.setItem(STORAGE_CREW_KEY, crewValue);
+    } catch(e) {}
+  }
+}
+
+function getSavedCrew() {
+  try {
+    return localStorage.getItem(STORAGE_CREW_KEY);
+  } catch(e) {
+    return null;
+  }
+}
+
+// Встановити вибраний екіпаж (якщо він є в списку)
+function setSelectedCrewIfExists(crewValue) {
+  const crewSelect = document.getElementById('crew');
+  if (!crewSelect) return false;
+  
+  if (crewValue && currentCrewList.includes(crewValue)) {
+    crewSelect.value = crewValue;
+    return true;
+  }
+  return false;
+}
+
+// ── Select екіпажів (оновлено з підтримкою збереження) ──
 function renderCrewSelect(crews) {
   const wrap = document.getElementById('crewWrap');
   if (!crews || crews.length === 0) {
     wrap.innerHTML = '<div class="skel" style="color:var(--danger)">⚠ список порожній</div>';
     return;
   }
+  
+  currentCrewList = crews; // зберігаємо список
+  
   const sel = document.createElement('select');
   sel.id = 'crew';
   const ph = document.createElement('option');
   ph.value = ''; ph.textContent = '— оберіть екіпаж —';
-  ph.disabled = true; ph.selected = true;
+  ph.disabled = true; 
+  if (!getSavedCrew()) ph.selected = true;
   sel.appendChild(ph);
+  
   crews.forEach(num => {
     const o = document.createElement('option');
     o.value = o.textContent = String(num);
     sel.appendChild(o);
   });
+  
   wrap.innerHTML = '';
   wrap.appendChild(sel);
+  
+  // Спроба відновити збережений екіпаж
+  const savedCrew = getSavedCrew();
+  if (savedCrew && crews.includes(savedCrew)) {
+    sel.value = savedCrew;
+  }
+  
+  // Зберігаємо при зміні вибору
+  sel.addEventListener('change', function() {
+    if (this.value) {
+      saveSelectedCrew(this.value);
+    }
+  });
+  
   document.getElementById('btnSend').disabled = false;
 }
 
@@ -949,7 +998,32 @@ async function loadData() {
     const res  = await fetch(`${SCRIPT_URL}?action=init&date=${encodeURIComponent(date)}&apiKey=${API_KEY}`, { cache: 'no-store' });
     const data = await res.json();
 
-    if (data.crews && !document.getElementById('crew')) renderCrewSelect(data.crews);
+    if (data.crews && !document.getElementById('crew')) {
+      renderCrewSelect(data.crews);
+    } else if (data.crews && document.getElementById('crew')) {
+      // Якщо список вже є, але треба оновити (на випадок зміни списку)
+      currentCrewList = data.crews;
+      const currentSelect = document.getElementById('crew');
+      const currentValue = currentSelect.value;
+      // Оновлюємо опції
+      const ph = currentSelect.querySelector('option[value=""]');
+      currentSelect.innerHTML = '';
+      currentSelect.appendChild(ph);
+      data.crews.forEach(num => {
+        const o = document.createElement('option');
+        o.value = o.textContent = String(num);
+        currentSelect.appendChild(o);
+      });
+      // Відновлюємо значення, якщо воно ще існує
+      if (currentValue && data.crews.includes(currentValue)) {
+        currentSelect.value = currentValue;
+      } else {
+        const saved = getSavedCrew();
+        if (saved && data.crews.includes(saved)) {
+          currentSelect.value = saved;
+        }
+      }
+    }
     renderMissing(data.missing ?? null);
   } catch(e) {
     console.error(e);
