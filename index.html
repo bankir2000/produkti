@@ -3,40 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЖУРНАЛ</title>
+<title>ПАЛИВО</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 
 /* ══════════════════════════════════════
-   НІЧНА ТЕМА  — темний термінал
+   НІЧНА ТЕМА
 ══════════════════════════════════════ */
 [data-theme="night"] {
-  --bg:            #080a08;
-  --surface:       #0f1210;
-  --surface2:      #141814;
-  --border:        #223022;
-  --border-strong: #2e422e;
-  --accent:        #3d6e32;
-  --accent2:       #68b030;
-  --text:          #c4d8ba;
-  --text2:         #7a9870;
-  --muted:         #445a40;
-  --input-bg:      #090b09;
-  --danger:        #c83030;
-  --danger-bg:     #130606;
-  --danger-border: #401818;
-  --chip-bg:       #1e0808;
-  --chip-border:   #4a1818;
-  --chip-text:     #e09090;
-  --total-bg:      #0a110a;
-  --btn-color:     #ffffff;
-  --sun-moon:      "🌙";
-  --theme-label:   "NIGHT";
-  --scanline: rgba(0,0,0,.08);
+  --bg:            #0d0f0d;
+  --surface:       #141914;
+  --surface2:      #1a201a;
+  --border:        #2a3d2a;
+  --border-strong: #3a5c3a;
+  --accent:        #4a8a38;
+  --accent2:       #7dd444;
+  --text:          #e8f5d8;
+  --text2:         #aad080;
+  --muted:         #6a8a60;
+  --label:         #c8e8a0;
+  --input-bg:      #101410;
+  --input-text:    #f0fce0;
+  --input-border:  #3a5a3a;
+  --danger:        #ff5555;
+  --danger-bg:     #1a0808;
+  --danger-border: #5a2020;
+  --chip-bg:       #2a0a0a;
+  --chip-border:   #6a2020;
+  --chip-text:     #ff9090;
+  --total-bg:      #0d140d;
+  --scanline: rgba(0,0,0,.06);
 }
 
 /* ══════════════════════════════════════
-   ДЕННА ТЕМА  — максимальний контраст
+   ДЕННА ТЕМА
 ══════════════════════════════════════ */
 [data-theme="day"] {
   --bg:            #dde8d0;
@@ -57,17 +57,10 @@
   --chip-border:   #cc4444;
   --chip-text:     #880000;
   --total-bg:      #e0edd0;
-  --btn-color:     #ffffff;
-  --sun-moon:      "☀️";
-  --theme-label:   "DAY";
   --scanline: rgba(255,255,255,0);
 }
 
-/* ══════════════════════════════════════
-   БАЗОВІ СТИЛІ
-══════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { transition: background .3s, color .3s; }
 
 body {
@@ -132,26 +125,19 @@ body {
   transition: color .3s;
 }
 
-[data-theme="day"] .header-title {
-  color: var(--accent);
-}
+[data-theme="day"] .header-title { color: var(--accent); }
 
 /* ══════════════════════════════════════
    ПЕРЕМИКАЧ ДЕНЬ / НІЧ
 ══════════════════════════════════════ */
 .theme-toggle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  user-select: none;
-  flex-shrink: 0;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  cursor: pointer; user-select: none; flex-shrink: 0;
 }
 
 .toggle-track {
-  width: 56px;
-  height: 28px;
+  width: 56px; height: 28px;
   border-radius: 14px;
   border: 2px solid var(--border-strong);
   background: var(--surface);
@@ -160,59 +146,34 @@ body {
   cursor: pointer;
 }
 
-[data-theme="night"] .toggle-track {
-  background: #1a2a1a;
-  border-color: var(--accent);
-}
-[data-theme="day"] .toggle-track {
-  background: #b8dfa0;
-  border-color: var(--accent2);
-}
+[data-theme="night"] .toggle-track { background: #1a2a1a; border-color: var(--accent); }
+[data-theme="day"]   .toggle-track { background: #b8dfa0; border-color: var(--accent2); }
 
 .toggle-thumb {
-  position: absolute;
-  top: 3px; left: 3px;
-  width: 18px; height: 18px;
-  border-radius: 50%;
+  position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%;
   transition: transform .25s cubic-bezier(.4,0,.2,1), background .3s;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px;
-  line-height: 1;
+  font-size: 11px; line-height: 1;
 }
 
-[data-theme="night"] .toggle-thumb {
-  background: #334a33;
-  transform: translateX(0);
-}
-[data-theme="day"] .toggle-thumb {
-  background: var(--accent2);
-  transform: translateX(28px);
-}
+[data-theme="night"] .toggle-thumb { background: #334a33; transform: translateX(0); }
+[data-theme="day"]   .toggle-thumb { background: var(--accent2); transform: translateX(28px); }
 
 .toggle-icons {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5px;
-  pointer-events: none;
-  font-size: 10px;
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5px; pointer-events: none; font-size: 10px;
 }
 
 .toggle-label {
   font-family: 'Oswald', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
   transition: color .3s;
 }
 
-[data-theme="day"] .toggle-label {
-  color: var(--accent);
-  font-weight: 600;
-}
+[data-theme="day"] .toggle-label { color: var(--accent); font-weight: 600; }
 
 /* ══════════════════════════════════════
    CARDS
@@ -225,96 +186,86 @@ body {
   transition: background .3s, border-color .3s;
 }
 
-[data-theme="day"] .card {
-  box-shadow: 0 1px 4px rgba(0,0,0,.08);
-}
+[data-theme="day"] .card { box-shadow: 0 1px 4px rgba(0,0,0,.08); }
 
 .section-label {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text2);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-strong);
   transition: color .3s, border-color .3s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  display: flex; align-items: center; gap: 6px;
+  font-weight: 700;
 }
 
 .section-label::before {
-  content: '';
-  display: inline-block;
+  content: ''; display: inline-block;
   width: 3px; height: 10px;
-  background: var(--accent2);
-  border-radius: 1px;
+  background: var(--accent2); border-radius: 1px;
 }
 
-[data-theme="day"] .section-label::before {
-  background: var(--accent);
-}
+[data-theme="day"] .section-label::before { background: var(--accent); }
 
 /* ══════════════════════════════════════
    FIELDS
 ══════════════════════════════════════ */
 .field-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  display: flex; align-items: center;
+  gap: 10px; margin-bottom: 10px;
 }
 .field-row:last-child { margin-bottom: 0; }
 
 label {
   font-family: 'Oswald', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text2);
-  letter-spacing: 1px;
-  min-width: 80px;
-  flex-shrink: 0;
+  font-size: 14px; font-weight: 700;
+  color: var(--label); letter-spacing: 1px;
+  min-width: 96px; flex-shrink: 0;
   transition: color .3s;
+  text-shadow: 0 0 8px rgba(125,212,68,.25);
 }
 
-[data-theme="day"] label { color: var(--text); }
+[data-theme="day"] label { color: var(--text); text-shadow: none; }
 
 input[type="number"],
 input[type="date"],
 select {
   flex: 1;
   background: var(--input-bg);
-  border: 2px solid var(--border);
-  border-radius: 3px;
-  color: var(--text);
+  border: 2px solid var(--input-border);
+  border-radius: 4px;
+  color: var(--input-text);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  padding: 9px 10px;
+  padding: 11px 12px;
   outline: none;
-  transition: border-color .15s, background .3s, color .3s;
+  transition: border-color .15s, background .3s, color .3s, box-shadow .15s;
   -webkit-appearance: none;
   appearance: none;
-  text-align: right;
+  min-height: 46px;
 }
 
+[data-theme="night"] input[type="number"],
+[data-theme="night"] input[type="date"],
+[data-theme="night"] select {
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.5);
+}
+
+input[type="number"] { text-align: right; font-size: 20px; }
+
 input[type="number"]::placeholder {
-  color: var(--muted);
-  opacity: 0.6;
-  font-weight: normal;
+  color: var(--muted); opacity: 0.5; font-weight: normal;
 }
 
 [data-theme="day"] input[type="number"],
 [data-theme="day"] input[type="date"],
 [data-theme="day"] select {
-  border-color: #8ab870;
-  color: #0a1a06;
-  font-weight: 600;
+  border-color: #8ab870; color: #0a1a06; font-weight: 600;
 }
 
 input:focus, select:focus {
-  border-color: var(--accent2);
-  outline: none;
+  border-color: var(--accent2); outline: none;
+  box-shadow: 0 0 0 3px rgba(125,212,68,.2), inset 0 1px 3px rgba(0,0,0,.4);
 }
 
 [data-theme="day"] input:focus,
@@ -324,18 +275,8 @@ input:focus, select:focus {
 }
 
 select { cursor: pointer; }
-input[type="number"] { 
-  text-align: right; 
-  font-size: 18px; 
-  font-weight: bold;
-}
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  opacity: 0.5;
-}
-
-[data-theme="night"] select option { background: #141814; }
+[data-theme="night"] select option { background: #1a201a; color: #e8f5d8; }
 [data-theme="day"]   select option { background: #ffffff; color: #0a1a06; }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -344,26 +285,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 [data-theme="night"] input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(.7) sepia(1) saturate(2) hue-rotate(80deg);
 }
-[data-theme="day"] input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: none;
-}
 
 .skel {
-  flex: 1;
-  background: var(--input-bg);
-  border: 2px solid var(--border);
-  border-radius: 3px;
-  padding: 9px 10px;
-  color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 1px;
-  animation: pulse 1.2s ease-in-out infinite;
+  flex: 1; background: var(--input-bg);
+  border: 2px solid var(--border); border-radius: 3px;
+  padding: 9px 10px; color: var(--muted); font-size: 13px;
+  letter-spacing: 1px; animation: pulse 1.2s ease-in-out infinite;
 }
 
 /* ══════════════════════════════════════
-   AMMO ROWS
+   FUEL ROWS (числові поля)
 ══════════════════════════════════════ */
-.ammo-row {
+.fuel-row {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
@@ -377,253 +310,141 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transition: background .3s, border-color .3s;
 }
 
-[data-theme="day"] .ammo-row {
+[data-theme="day"] .fuel-row {
   border-left-color: var(--accent);
   background: #f8faf4;
   box-shadow: 0 1px 3px rgba(0,0,0,.06);
 }
 
-.ammo-row:last-child { margin-bottom: 0; }
+.fuel-row:last-child { margin-bottom: 0; }
 
-.ammo-name {
+.fuel-name {
   font-family: 'Oswald', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent2);
-  letter-spacing: 2px;
+  font-size: 15px; font-weight: 700;
+  color: var(--accent2); letter-spacing: 1px;
+  line-height: 1.3;
   transition: color .3s;
+  text-shadow: 0 0 10px rgba(125,212,68,.3);
+}
+[data-theme="day"] .fuel-name { text-shadow: none; }
+
+[data-theme="day"] .fuel-name { color: var(--accent); }
+
+.fuel-unit {
+  font-size: 10px; color: var(--muted);
+  margin-left: 4px; transition: color .3s;
 }
 
-[data-theme="day"] .ammo-name { color: var(--accent); }
-
-.ammo-unit {
-  font-size: 10px;
-  color: var(--muted);
-  margin-left: 5px;
-  transition: color .3s;
-}
-
-.ammo-ctrl { display: flex; align-items: center; gap: 6px; }
-.ammo-ctrl input { width: 90px; flex: none; }
+.fuel-ctrl { display: flex; align-items: center; gap: 6px; }
+.fuel-ctrl input { width: 90px; flex: none; font-size: 20px; }
 
 .btn-pm {
-  background: var(--surface);
+  background: var(--surface2);
   border: 2px solid var(--border-strong);
-  color: var(--text2);
-  width: 40px; height: 40px;
-  font-size: 22px;
-  cursor: pointer;
-  border-radius: 3px;
+  color: var(--accent2);
+  width: 48px; height: 48px;
+  font-size: 26px; cursor: pointer;
+  border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Share Tech Mono', monospace;
-  transition: all .1s;
-  font-weight: bold;
-  line-height: 1;
+  transition: all .1s; font-weight: bold; line-height: 1;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-[data-theme="day"] .btn-pm {
-  background: #e8f5da;
-  border-color: var(--border-strong);
-  color: var(--accent);
-}
-
-.btn-pm:active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-  transform: scale(.93);
-}
-
-/* ══════════════════════════════════════
-   TOTAL ROWS (окремі)
-══════════════════════════════════════ */
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--total-bg);
-  border: 2px solid var(--accent2);
-  border-radius: 2px;
-  margin-top: 8px;
-  transition: background .3s, border-color .3s;
-}
-
-[data-theme="day"] .total-row {
-  background: #d4edbe;
-  border-color: var(--accent);
-}
-
-.total-lbl {
-  font-family: 'Oswald', sans-serif;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 3px;
-  transition: color .3s;
-}
-
-.total-val {
-  font-family: 'Oswald', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent2);
-  transition: color .3s;
-}
-
-[data-theme="day"] .total-val { color: var(--accent); }
-
-/* Спеціальний стиль для великого тоталу */
-.total-row-large .total-val {
-  font-size: 24px;
-}
-
-.total-row-large {
-  margin-bottom: 12px;
-}
-
-.separator {
-  border-top: 2px dashed var(--border);
-  margin: 12px 0 0 0;
-  opacity: 0.5;
-}
+[data-theme="night"] .btn-pm { box-shadow: 0 2px 6px rgba(0,0,0,.5); }
+[data-theme="day"] .btn-pm { background: #e8f5da; border-color: var(--border-strong); color: var(--accent); }
+.btn-pm:active { background: var(--accent); color: #fff; border-color: var(--accent2); transform: scale(.9); }
 
 /* ══════════════════════════════════════
    SUBMIT BUTTON
 ══════════════════════════════════════ */
 .btn-submit {
-  width: 100%;
-  padding: 16px;
-  background: var(--accent);
-  border: 2px solid var(--accent2);
-  color: #fff;
-  font-family: 'Oswald', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all .15s;
-  display: block;
-  border-radius: 0;
+  width: 100%; padding: 16px;
+  background: var(--accent); border: 2px solid var(--accent2);
+  color: #fff; font-family: 'Oswald', sans-serif;
+  font-size: 17px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  cursor: pointer; transition: all .15s;
+  display: block; border-radius: 0;
 }
 
 [data-theme="day"] .btn-submit {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-  font-size: 18px;
-  box-shadow: 0 3px 8px rgba(45,96,24,.3);
+  background: var(--accent); border-color: var(--accent);
+  font-size: 18px; box-shadow: 0 3px 8px rgba(45,96,24,.3);
 }
 
 .btn-submit:hover  { background: #4a8a28; }
 .btn-submit:active { background: #2d5a18; transform: translateY(1px); }
 .btn-submit:disabled {
-  background: var(--muted);
-  color: rgba(255,255,255,.5);
-  cursor: not-allowed;
-  border-color: var(--muted);
-  box-shadow: none;
+  background: var(--muted); color: rgba(255,255,255,.5);
+  cursor: not-allowed; border-color: var(--muted); box-shadow: none;
 }
 
 /* ══════════════════════════════════════
    SEND STATUS
 ══════════════════════════════════════ */
 .send-status {
-  padding: 11px 14px;
-  font-size: 13px;
-  text-align: center;
-  display: none;
-  border: 2px solid;
-  border-top: none;
-  letter-spacing: 1px;
-  font-weight: 600;
+  padding: 11px 14px; font-size: 13px;
+  text-align: center; display: none;
+  border: 2px solid; border-top: none;
+  letter-spacing: 1px; font-weight: 600;
 }
 
 .send-status.ok {
-  display: block;
-  color: var(--accent2);
-  border-color: var(--accent);
-  background: var(--total-bg);
+  display: block; color: var(--accent2);
+  border-color: var(--accent); background: var(--total-bg);
 }
-[data-theme="day"] .send-status.ok {
-  color: var(--accent);
-  background: #e0f0d0;
-}
+[data-theme="day"] .send-status.ok { color: var(--accent); background: #e0f0d0; }
 
 .send-status.err {
-  display: block;
-  color: var(--danger);
-  border-color: var(--danger);
-  background: var(--danger-bg);
+  display: block; color: var(--danger);
+  border-color: var(--danger); background: var(--danger-bg);
 }
-[data-theme="day"] .send-status.err {
-  background: #feeaea;
-}
+[data-theme="day"] .send-status.err { background: #feeaea; }
 
 .send-status.loading {
-  display: block;
-  color: #c09010;
-  border-color: #c09010;
-  background: var(--surface);
+  display: block; color: #c09010;
+  border-color: #c09010; background: var(--surface);
 }
 
 /* ══════════════════════════════════════
    MISSING BLOCK
 ══════════════════════════════════════ */
 .missing-card {
-  border: 2px solid var(--danger);
-  border-top: none;
-  background: var(--danger-bg);
-  padding: 16px;
+  border: 2px solid var(--danger); border-top: none;
+  background: var(--danger-bg); padding: 16px;
   transition: background .3s, border-color .3s;
 }
 
-[data-theme="day"] .missing-card {
-  background: #fff0f0;
-  border-color: #cc3333;
-}
+[data-theme="day"] .missing-card { background: #fff0f0; border-color: #cc3333; }
 
 .missing-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--danger-border);
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--danger-border);
 }
 
-[data-theme="day"] .missing-head {
-  border-bottom-color: #ddaaaa;
-}
+[data-theme="day"] .missing-head { border-bottom-color: #ddaaaa; }
 
 .missing-title {
   font-family: 'Oswald', sans-serif;
-  font-size: 11px;
-  color: var(--danger);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 700;
+  font-size: 11px; color: var(--danger);
+  letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
 }
 
 [data-theme="day"] .missing-title { color: #aa1010; }
 
 .btn-refresh {
-  background: transparent;
-  border: 2px solid var(--danger-border);
-  color: var(--muted);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  padding: 4px 10px;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: all .15s;
-  letter-spacing: 1px;
-  font-weight: 600;
+  background: transparent; border: 2px solid var(--danger-border);
+  color: var(--muted); font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; padding: 4px 10px;
+  cursor: pointer; border-radius: 3px;
+  transition: all .15s; letter-spacing: 1px; font-weight: 600;
 }
-.btn-refresh:hover {
-  border-color: var(--danger);
-  color: var(--danger);
-}
+
+.btn-refresh:hover { border-color: var(--danger); color: var(--danger); }
 [data-theme="day"] .btn-refresh:hover { color: #aa1010; border-color: #cc3333; }
 .btn-refresh:disabled { opacity: .4; cursor: not-allowed; }
 
@@ -631,29 +452,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .missing-chip {
   font-family: 'Oswald', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--chip-text);
-  padding: 6px 12px;
-  background: var(--chip-bg);
-  border: 2px solid var(--chip-border);
-  border-radius: 3px;
-  letter-spacing: 1px;
-  transition: background .3s;
+  font-size: 13px; font-weight: 700;
+  color: var(--chip-text); padding: 6px 12px;
+  background: var(--chip-bg); border: 2px solid var(--chip-border);
+  border-radius: 4px; letter-spacing: 1px;
 }
 
-[data-theme="day"] .missing-chip {
-  background: #ffd0d0;
-  border-color: #cc4444;
-  color: #880000;
-}
+[data-theme="day"] .missing-chip { background: #ffd0d0; border-color: #cc4444; color: #880000; }
 
 .msg {
-  padding: 10px;
-  text-align: center;
-  font-size: 13px;
-  letter-spacing: 1px;
-  font-weight: 600;
+  padding: 10px; text-align: center;
+  font-size: 13px; letter-spacing: 1px; font-weight: 600;
 }
 .msg.ok    { color: var(--accent2); }
 [data-theme="day"] .msg.ok { color: var(--accent); }
@@ -664,38 +473,132 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    SYS LINE
 ══════════════════════════════════════ */
 .sys-line {
-  font-size: 11px;
-  color: var(--muted);
+  font-size: 11px; color: var(--muted);
   padding: 7px 16px;
-  border: 2px solid var(--border);
-  border-top: none;
+  border: 2px solid var(--border); border-top: none;
   background: var(--bg);
-  display: flex;
-  justify-content: space-between;
+  display: flex; justify-content: space-between;
   transition: background .3s, border-color .3s, color .3s;
 }
 
-[data-theme="day"] .sys-line {
-  background: #d4deca;
-  color: var(--text2);
-}
+[data-theme="day"] .sys-line { background: #d4deca; color: var(--text2); }
 
 /* ══════════════════════════════════════
    ANIMATIONS
 ══════════════════════════════════════ */
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 .cursor {
-  display: inline-block;
-  width: 9px; height: 16px;
-  background: var(--accent2);
-  margin-left: 3px;
+  display: inline-block; width: 9px; height: 16px;
+  background: var(--accent2); margin-left: 3px;
   animation: blink 1s step-end infinite;
-  vertical-align: middle;
-  transition: background .3s;
+  vertical-align: middle; transition: background .3s;
 }
 [data-theme="day"] .cursor { background: var(--accent); }
 
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+/* ══════════════════════════════════════
+   АДАПТИВ — смартфони / планшети
+══════════════════════════════════════ */
+
+/* Смартфони — до 420px */
+@media (max-width: 420px) {
+  body { padding: 8px 8px 32px; font-size: 13px; }
+  .container { max-width: 100%; }
+  .header { padding: 10px 12px 10px 18px; }
+  .header-title { font-size: 19px; letter-spacing: 1px; }
+  .card { padding: 12px 10px; }
+  label { font-size: 12px; min-width: 82px; }
+  input[type="number"],
+  input[type="date"],
+  select { font-size: 15px; padding: 10px 8px; min-height: 44px; }
+  input[type="number"] { font-size: 18px; }
+  .fuel-ctrl input { width: 80px; font-size: 18px; }
+  .btn-pm { width: 44px; height: 44px; font-size: 24px; }
+  .fuel-name { font-size: 13px; }
+  .btn-submit { font-size: 15px; padding: 15px; letter-spacing: 2px; }
+  .missing-chip { font-size: 12px; padding: 5px 9px; }
+  .sys-line { font-size: 10px; padding: 6px 10px; }
+}
+
+/* Планшети — 481px і більше */
+@media (min-width: 481px) {
+  .container { max-width: 560px; }
+  label { font-size: 15px; min-width: 110px; }
+  input[type="number"],
+  input[type="date"],
+  select { font-size: 17px; padding: 12px 14px; }
+  input[type="number"] { font-size: 22px; }
+  .fuel-ctrl input { width: 110px; font-size: 22px; }
+  .btn-pm { width: 52px; height: 52px; font-size: 28px; }
+  .fuel-name { font-size: 16px; }
+  .btn-submit { font-size: 19px; padding: 18px; }
+  .missing-chip { font-size: 14px; padding: 7px 14px; }
+}
+
+/* Великі планшети — 768px і більше */
+@media (min-width: 768px) {
+  .container { max-width: 640px; }
+  body { padding: 24px 24px 48px; }
+  label { font-size: 16px; min-width: 120px; }
+  .card { padding: 20px; }
+  .header { padding: 14px 20px 14px 28px; }
+  .header-title { font-size: 26px; }
+}
+
+/* Прибираємо скролл на цифрових інпутах */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+/* Збільшені зони дотику для мобільних */
+@media (hover: none) and (pointer: coarse) {
+  .btn-pm { min-width: 48px; min-height: 48px; }
+  select, input[type="date"] { min-height: 48px; }
+  .btn-submit { min-height: 54px; }
+  .btn-refresh { padding: 8px 16px; font-size: 12px; }
+}
+
+/* ══════════════════════════════════════
+   ВЧОРАШНІЙ ЗАЛИШОК
+══════════════════════════════════════ */
+.prev-remain-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-left: 4px solid var(--muted);
+  border-radius: 2px;
+  transition: background .3s, border-color .3s;
+}
+.prev-remain-row.loaded {
+  border-left-color: var(--accent2);
+}
+[data-theme="day"] .prev-remain-row.loaded {
+  border-left-color: var(--accent);
+}
+.prev-remain-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--muted); letter-spacing: 1px;
+  flex: 1; line-height: 1.3;
+  transition: color .3s;
+}
+.prev-remain-row.loaded .prev-remain-label { color: var(--text2); }
+[data-theme="day"] .prev-remain-row.loaded .prev-remain-label { color: var(--text); }
+.prev-remain-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 22px; font-weight: bold;
+  color: var(--muted); min-width: 70px; text-align: right;
+  transition: color .3s;
+}
+.prev-remain-row.loaded .prev-remain-val { color: var(--accent2); }
+[data-theme="day"] .prev-remain-row.loaded .prev-remain-val { color: var(--accent); }
+.prev-remain-unit {
+  font-size: 11px; color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+}
 
 </style>
 </head>
@@ -704,21 +607,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   <div class="header">
     <div class="header-left">
-      <div class="header-title">ЖУРНАЛ <span class="cursor"></span></div>
+      <div class="header-title">ПАЛИВО <span class="cursor"></span></div>
     </div>
-
     <div class="theme-toggle" onclick="toggleTheme()" title="Перемикач день/ніч">
       <div class="toggle-track">
-        <div class="toggle-icons">
-          <span>🌙</span>
-          <span>☀️</span>
-        </div>
+        <div class="toggle-icons"><span>🌙</span><span>☀️</span></div>
         <div class="toggle-thumb"></div>
       </div>
       <div class="toggle-label" id="themeLabel">NIGHT</div>
     </div>
   </div>
 
+  <!-- РЕКВІЗИТИ -->
   <div class="card">
     <div class="section-label">Реквізити</div>
     <div class="field-row">
@@ -726,72 +626,63 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       <input type="date" id="date" />
     </div>
     <div class="field-row">
-      <label>ЕКІПАЖ</label>
-      <div id="crewWrap" style="flex:1">
+      <label>ПІДРОЗДІЛ</label>
+      <div id="unitWrap" style="flex:1">
         <div class="skel">⏳ завантаження...</div>
       </div>
     </div>
+    <div class="field-row">
+      <label>МВГ</label>
+      <div id="mvgWrap" style="flex:1">
+        <div class="skel" id="mvgSkel">— спочатку підрозділ —</div>
+      </div>
+    </div>
+    <div class="field-row">
+      <label>ПАЛЬНЕ</label>
+      <select id="fuel">
+        <option value="">— тип пального —</option>
+        <option value="ДП">ДП</option>
+        <option value="А-80">А-80</option>
+        <option value="А-92">А-92</option>
+        <option value="А-95">А-95</option>
+      </select>
+    </div>
   </div>
 
+  <!-- ДАНІ -->
   <div class="card">
-    <div class="section-label">Використано набоїв</div>
+    <div class="section-label">Дані за добу</div>
 
-    <!-- Група великого калібру -->
-    <div class="ammo-row">
-      <div><span class="ammo-name">МДЗ</span><span class="ammo-unit">шт</span></div>
-      <div class="ammo-ctrl">
-        <button class="btn-pm" onclick="dec('mdz')">−</button>
-        <input type="number" id="mdz" value="" placeholder="0" min="0" step="1">
-        <button class="btn-pm" onclick="inc('mdz')">+</button>
+    <div class="fuel-row">
+      <div>
+        <span class="fuel-name">ВИКОРИСТАНО</span>
+        <span class="fuel-unit">л / добу</span>
       </div>
-    </div>
-    <div class="ammo-row">
-      <div><span class="ammo-name">БЗТ</span><span class="ammo-unit">шт</span></div>
-      <div class="ammo-ctrl">
-        <button class="btn-pm" onclick="dec('bzt')">−</button>
-        <input type="number" id="bzt" value="" placeholder="0" min="0" step="1">
-        <button class="btn-pm" onclick="inc('bzt')">+</button>
-      </div>
-    </div>
-    <div class="ammo-row">
-      <div><span class="ammo-name">Б32</span><span class="ammo-unit">шт</span></div>
-      <div class="ammo-ctrl">
-        <button class="btn-pm" onclick="dec('b32')">−</button>
-        <input type="number" id="b32" value="" placeholder="0" min="0" step="1">
-        <button class="btn-pm" onclick="inc('b32')">+</button>
+      <div class="fuel-ctrl">
+        <button class="btn-pm" onclick="dec('used')">−</button>
+        <input type="number" id="used" value="" placeholder="0" min="0" step="1">
+        <button class="btn-pm" onclick="inc('used')">+</button>
       </div>
     </div>
 
-    <!-- ВСЬОГО для великого калібру -->
-    <div class="total-row total-row-large" style="border-color: var(--accent2);">
-      <span class="total-lbl">ВСЬОГО (14.5мм)</span>
-      <span class="total-val" id="totalLarge">0</span>
-    </div>
-
-    <div class="separator"></div>
-
-    <!-- Група малого калібру -->
-    <div class="ammo-row" style="margin-top: 12px;">
-      <div><span class="ammo-name">ПС</span><span class="ammo-unit">шт</span></div>
-      <div class="ammo-ctrl">
-        <button class="btn-pm" onclick="dec('ps')">−</button>
-        <input type="number" id="ps" value="" placeholder="0" min="0" step="1">
-        <button class="btn-pm" onclick="inc('ps')">+</button>
-      </div>
-    </div>
-    <div class="ammo-row">
-      <div><span class="ammo-name">ТЗ</span><span class="ammo-unit">шт</span></div>
-      <div class="ammo-ctrl">
-        <button class="btn-pm" onclick="dec('tz')">−</button>
-        <input type="number" id="tz" value="" placeholder="0" min="0" step="1">
-        <button class="btn-pm" onclick="inc('tz')">+</button>
+    <div class="prev-remain-row" id="prevRemainRow">
+      <div class="prev-remain-label" id="prevRemainLabel">Залишок за вчора, л</div>
+      <div>
+        <span class="prev-remain-val" id="prevRemainVal">—</span>
+        <span class="prev-remain-unit"> л</span>
       </div>
     </div>
 
-    <!-- ВСЬОГО для малого калібру -->
-    <div class="total-row">
-      <span class="total-lbl">ВСЬОГО (5.45мм)</span>
-      <span class="total-val" id="totalSmall">0</span>
+    <div class="fuel-row">
+      <div>
+        <span class="fuel-name">ЗАЛИШОК</span>
+        <span class="fuel-unit">л на МВГ</span>
+      </div>
+      <div class="fuel-ctrl">
+        <button class="btn-pm" onclick="dec('remain')">−</button>
+        <input type="number" id="remain" value="" placeholder="0" min="0" step="1">
+        <button class="btn-pm" onclick="inc('remain')">+</button>
+      </div>
     </div>
   </div>
 
@@ -800,10 +691,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   </button>
   <div class="send-status" id="sendStatus"></div>
 
+  <!-- НЕ НАДАЛИ ВІДОМОСТІ -->
   <div class="missing-card">
     <div class="missing-head">
       <span class="missing-title">⚠ Не надали відомості</span>
-      <button class="btn-refresh" id="btnRefresh" onclick="loadData()">↻ ОНОВИТИ</button>
+      <div style="display:flex;gap:6px">
+        <button class="btn-refresh" id="btnShare" onclick="shareMissing()" title="Поділитись списком">📋</button>
+        <button class="btn-refresh" id="btnRefresh" onclick="loadData()">↻ ОНОВИТИ</button>
+      </div>
     </div>
     <div id="missingList">
       <div class="msg warn">⏳ завантаження...</div>
@@ -812,35 +707,34 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   <div class="sys-line">
     <span id="clock">—</span>
-    <span>v4.1 · БАНКІР</span>
+    <span>v1.2 · Банкір</span>
   </div>
 
 </div>
 <script>
 // ═══════════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoIRezYwaFnYER3JtaVLiU1dHJ9e3qEMdS495mRxXj2dg660Cp1BzJW0xIMPgDnBQp/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFzDtyDDo7ievYoiMJ9SxeB_2Yv1lNpS3Lh5fuGcFDR73PIinLbRlKgCtVD-OOgwUq/exec';
 // ═══════════════════════════════════════════════════════
 
-const AMMO_LARGE = ['mdz', 'bzt', 'b32'];  // великий калібр (14.5мм)
-const AMMO_SMALL = ['ps', 'tz'];           // малий калібр (5.45мм)
-const AMMO_ALL = [...AMMO_LARGE, ...AMMO_SMALL];
+const FIELDS = ['used', 'remain'];
 const API_KEY = 'BK2026';
-const STORAGE_CREW_KEY = 'bk_selected_crew';
-let currentCrewList = [];
+const STORAGE_UNIT_KEY = 'fuel_selected_unit';
+const STORAGE_MVG_KEY  = 'fuel_selected_mvg';
+const STORAGE_FUEL_KEY = 'fuel_selected_fuel';
+let refData = { units: [], map: {} };
 
-// ── Тема день/ніч ─────────────────────────────────────
+// ── Тема ──────────────────────────────────────────────
 function toggleTheme() {
   const html = document.documentElement;
-  const isNight = html.getAttribute('data-theme') === 'night';
-  const next = isNight ? 'day' : 'night';
+  const next = html.getAttribute('data-theme') === 'night' ? 'day' : 'night';
   html.setAttribute('data-theme', next);
   document.getElementById('themeLabel').textContent = next === 'day' ? 'DAY' : 'NIGHT';
-  try { localStorage.setItem('bk_theme', next); } catch(e){}
+  try { localStorage.setItem('fuel_theme', next); } catch(e){}
 }
 
 (function(){
   try {
-    const saved = localStorage.getItem('bk_theme');
+    const saved = localStorage.getItem('fuel_theme');
     if (saved) {
       document.documentElement.setAttribute('data-theme', saved);
       const lbl = document.getElementById('themeLabel');
@@ -861,137 +755,167 @@ function isoToUa(v) {
   return `${d}.${m}.${y}`;
 }
 
-// ── Функції для полів ─────────────────────────────────
+// ── Поля ─────────────────────────────────────────────
 function getInputValue(id) {
-  const el = document.getElementById(id);
-  const val = el.value;
+  const val = document.getElementById(id).value;
   if (val === '') return 0;
-  return parseInt(val) || 0;
+  return parseFloat(val) || 0;
 }
 
 function inc(id) {
   const e = document.getElementById(id);
-  let val = getInputValue(id);
-  e.value = val + 1;
-  recalc();
+  e.value = getInputValue(id) + 1;
 }
 
 function dec(id) {
   const e = document.getElementById(id);
-  let val = getInputValue(id);
-  const newVal = val - 1;
-  e.value = newVal < 0 ? 0 : newVal;
-  if (newVal < 0) e.value = '';
-  recalc();
+  const val = getInputValue(id);
+  e.value = val > 0 ? val - 1 : '';
 }
 
-function recalc() {
-  // Розрахунок для великого калібру (14.5мм)
-  let totalLarge = 0;
-  AMMO_LARGE.forEach(id => {
-    totalLarge += getInputValue(id);
-  });
-  document.getElementById('totalLarge').textContent = totalLarge;
-  
-  // Розрахунок для малого калібру (5.45мм)
-  let totalSmall = 0;
-  AMMO_SMALL.forEach(id => {
-    totalSmall += getInputValue(id);
-  });
-  document.getElementById('totalSmall').textContent = totalSmall;
-}
-
-function setupAutoClearOnFocus() {
-  AMMO_ALL.forEach(id => {
+function setupAutoClear() {
+  FIELDS.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    
     el.addEventListener('focus', function() {
-      if (this.value === '0' || this.value === '') {
-        this.value = '';
-      }
+      if (this.value === '0' || this.value === '') this.value = '';
     });
-    
     el.addEventListener('blur', function() {
-      if (this.value === '' || this.value === null) {
-        this.value = '';
-      } else {
-        let num = parseInt(this.value);
-        if (isNaN(num) || num < 0) num = 0;
-        if (num === 0) {
-          this.value = '';
-        } else {
-          this.value = num;
-        }
-      }
-      recalc();
-    });
-    
-    el.addEventListener('input', function() {
-      recalc();
+      if (this.value === '') return;
+      let num = parseFloat(this.value);
+      if (isNaN(num) || num < 0) num = 0;
+      this.value = num === 0 ? '' : num;
     });
   });
 }
 
-// ── Збереження/відновлення екіпажу ───────────────────
-function saveSelectedCrew(crewValue) {
-  if (crewValue) {
-    try {
-      localStorage.setItem(STORAGE_CREW_KEY, crewValue);
-    } catch(e) {}
-  }
-}
+// ── Збереження ───────────────────────────────────────
+function saveUnit(v) { if (v) try { localStorage.setItem(STORAGE_UNIT_KEY, v); } catch(e){} }
+function saveMvg(v)  { if (v) try { localStorage.setItem(STORAGE_MVG_KEY,  v); } catch(e){} }
+function getSavedUnit() { try { return localStorage.getItem(STORAGE_UNIT_KEY); } catch(e) { return null; } }
+function getSavedMvg()  { try { return localStorage.getItem(STORAGE_MVG_KEY);  } catch(e) { return null; } }
+function saveFuel(v)    { if (v) try { localStorage.setItem(STORAGE_FUEL_KEY, v); } catch(e){} }
+function getSavedFuel() { try { return localStorage.getItem(STORAGE_FUEL_KEY); } catch(e) { return null; } }
 
-function getSavedCrew() {
-  try {
-    return localStorage.getItem(STORAGE_CREW_KEY);
-  } catch(e) {
-    return null;
-  }
-}
-
-// ── Select екіпажів ───────────────────────────────────
-function renderCrewSelect(crews) {
-  const wrap = document.getElementById('crewWrap');
-  if (!crews || crews.length === 0) {
-    wrap.innerHTML = '<div class="skel" style="color:var(--danger)">⚠ список порожній</div>';
+// ── Select підрозділу ─────────────────────────────────
+function renderUnitSelect(units) {
+  const wrap = document.getElementById('unitWrap');
+  if (!units || units.length === 0) {
+    wrap.innerHTML = '<div class="skel" style="color:var(--danger)">⚠ підрозділи не знайдено</div>';
     return;
   }
-  
-  currentCrewList = crews;
-  
   const sel = document.createElement('select');
-  sel.id = 'crew';
+  sel.id = 'unit';
+
   const ph = document.createElement('option');
-  ph.value = ''; ph.textContent = '— оберіть екіпаж —';
-  ph.disabled = true; 
-  if (!getSavedCrew()) ph.selected = true;
+  ph.value = ''; ph.textContent = '— оберіть підрозділ —';
+  ph.disabled = true; ph.selected = true;
   sel.appendChild(ph);
-  
-  crews.forEach(num => {
+
+  units.forEach(name => {
     const o = document.createElement('option');
-    o.value = o.textContent = String(num);
+    o.value = o.textContent = name;
     sel.appendChild(o);
   });
-  
+
   wrap.innerHTML = '';
   wrap.appendChild(sel);
-  
-  const savedCrew = getSavedCrew();
-  if (savedCrew && crews.includes(savedCrew)) {
-    sel.value = savedCrew;
+
+  const saved = getSavedUnit();
+  if (saved && units.includes(saved)) {
+    sel.value = saved;
+    renderMvgSelect(refData.map[saved] || []);
+  } else {
+    renderMvgSelect([]);
   }
-  
+
   sel.addEventListener('change', function() {
-    if (this.value) {
-      saveSelectedCrew(this.value);
-    }
+    saveUnit(this.value);
+    renderMvgSelect(refData.map[this.value] || []);
+    // Скинути вчорашній залишок поки МВГ не вибрано
+    document.getElementById('prevRemainRow').classList.remove('loaded');
+    document.getElementById('prevRemainVal').textContent = '—';
+    document.getElementById('prevRemainLabel').textContent = 'Залишок за вчора, л';
   });
-  
+}
+
+// ── Select МВГ (фільтрований) ─────────────────────────
+// ── Завантажити залишок за вчора ─────────────────────
+async function fetchPrevRemain(mvgName) {
+  const row   = document.getElementById('prevRemainRow');
+  const label = document.getElementById('prevRemainLabel');
+  const val   = document.getElementById('prevRemainVal');
+
+  // Скинути стан
+  row.classList.remove('loaded');
+  val.textContent = '…';
+
+  if (!mvgName) { val.textContent = '—'; return; }
+
+  const dateVal = document.getElementById('date').value;
+  const dateUa  = isoToUa(dateVal) || todayUa();
+
+  try {
+    const res  = await fetch(
+      `${SCRIPT_URL}?action=prevRemain&date=${encodeURIComponent(dateUa)}&mvg=${encodeURIComponent(mvgName)}&apiKey=${API_KEY}`,
+      { cache: 'no-store' }
+    );
+    const data = await res.json();
+
+    if (data.remain !== null && data.remain !== undefined) {
+      label.textContent = `Залишок за ${data.prevDate}, л`;
+      val.textContent   = Number(data.remain).toFixed(1);
+      row.classList.add('loaded');
+    } else {
+      label.textContent = `Залишок за ${data.prevDate || 'вчора'}, л`;
+      val.textContent   = 'немає даних';
+    }
+  } catch(e) {
+    val.textContent = '—';
+    console.error('prevRemain error:', e);
+  }
+}
+
+function renderMvgSelect(mvgs) {
+  const wrap = document.getElementById('mvgWrap');
+  if (!mvgs || mvgs.length === 0) {
+    wrap.innerHTML = '<div class="skel" id="mvgSkel">— спочатку підрозділ —</div>';
+    document.getElementById('btnSend').disabled = true;
+    return;
+  }
+
+  const sel = document.createElement('select');
+  sel.id = 'mvg';
+
+  const ph = document.createElement('option');
+  ph.value = ''; ph.textContent = '— оберіть МВГ —';
+  ph.disabled = true; ph.selected = true;
+  sel.appendChild(ph);
+
+  mvgs.forEach(name => {
+    const o = document.createElement('option');
+    o.value = o.textContent = name;
+    sel.appendChild(o);
+  });
+
+  wrap.innerHTML = '';
+  wrap.appendChild(sel);
+
+  const saved = getSavedMvg();
+  if (saved && mvgs.includes(saved)) {
+    sel.value = saved;
+    fetchPrevRemain(saved);
+  }
+
+  sel.addEventListener('change', function() {
+    saveMvg(this.value);
+    fetchPrevRemain(this.value);
+  });
+
   document.getElementById('btnSend').disabled = false;
 }
 
-// ── Відсутні ──────────────────────────────────────────
+// ── Відсутні ─────────────────────────────────────────
 function renderMissing(list) {
   const el = document.getElementById('missingList');
   if (!list) {
@@ -999,7 +923,7 @@ function renderMissing(list) {
     return;
   }
   if (list.length === 0) {
-    el.innerHTML = '<div class="msg ok">✓ Всі екіпажі надали відомості</div>';
+    el.innerHTML = '<div class="msg ok">✓ Всі МВГ надали відомості</div>';
     return;
   }
   el.innerHTML = '<div class="missing-grid">'
@@ -1007,13 +931,10 @@ function renderMissing(list) {
     + '</div>';
 }
 
-// ── Завантажити з таблиці ─────────────────────────────
+// ── Завантажити з таблиці ────────────────────────────
 async function loadData() {
   const btn = document.getElementById('btnRefresh');
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = '↻ ...';
-  }
+  if (btn) { btn.disabled = true; btn.textContent = '↻ ...'; }
   document.getElementById('missingList').innerHTML = '<div class="msg warn">⏳ завантаження...</div>';
 
   try {
@@ -1021,63 +942,47 @@ async function loadData() {
     const res  = await fetch(`${SCRIPT_URL}?action=init&date=${encodeURIComponent(date)}&apiKey=${API_KEY}`, { cache: 'no-store' });
     const data = await res.json();
 
-    if (data.crews && !document.getElementById('crew')) {
-      renderCrewSelect(data.crews);
-    } else if (data.crews && document.getElementById('crew')) {
-      currentCrewList = data.crews;
-      const currentSelect = document.getElementById('crew');
-      const currentValue = currentSelect.value;
-      const ph = currentSelect.querySelector('option[value=""]');
-      currentSelect.innerHTML = '';
-      currentSelect.appendChild(ph);
-      data.crews.forEach(num => {
-        const o = document.createElement('option');
-        o.value = o.textContent = String(num);
-        currentSelect.appendChild(o);
-      });
-      if (currentValue && data.crews.includes(currentValue)) {
-        currentSelect.value = currentValue;
-      } else {
-        const saved = getSavedCrew();
-        if (saved && data.crews.includes(saved)) {
-          currentSelect.value = saved;
-        }
+    if (data.units) {
+      refData = { units: data.units, map: data.map || {} };
+      // Рендер підрозділів тільки при першому завантаженні
+      if (!document.getElementById('unit')) {
+        renderUnitSelect(data.units);
       }
     }
     renderMissing(data.missing ?? null);
   } catch(e) {
     console.error(e);
     renderMissing(null);
-    if (!document.getElementById('crew')) {
-      document.getElementById('crewWrap').innerHTML =
+    if (!document.getElementById('unit')) {
+      document.getElementById('unitWrap').innerHTML =
         '<div class="skel" style="color:var(--danger)">⚠ помилка з\'єднання</div>';
     }
   } finally {
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = '↻ ОНОВИТИ';
-    }
+    if (btn) { btn.disabled = false; btn.textContent = '↻ ОНОВИТИ'; }
   }
 }
 
-// ── Відправити ────────────────────────────────────────
+// ── Відправити ───────────────────────────────────────
 async function sendData() {
-  const crewEl  = document.getElementById('crew');
+  const unitEl  = document.getElementById('unit');
+  const mvgEl   = document.getElementById('mvg');
+  const fuelEl  = document.getElementById('fuel');
   const dateVal = document.getElementById('date').value;
 
-  if (!crewEl || !crewEl.value) { showSend('err','⚠ Оберіть екіпаж'); return; }
-  if (!dateVal)                  { showSend('err','⚠ Вкажіть дату');   return; }
+  if (!unitEl || !unitEl.value) { showSend('err','⚠ Оберіть підрозділ');    return; }
+  if (!mvgEl  || !mvgEl.value)  { showSend('err','⚠ Оберіть МВГ');          return; }
+  if (!fuelEl.value)             { showSend('err','⚠ Оберіть тип пального'); return; }
+  if (!dateVal)                  { showSend('err','⚠ Вкажіть дату');          return; }
 
   const payload = {
     apiKey: API_KEY,
     action: 'submit',
     date:   isoToUa(dateVal),
-    crew:   crewEl.value,
-    mdz:    getInputValue('mdz'),
-    bzt:    getInputValue('bzt'),
-    b32:    getInputValue('b32'),
-    ps:     getInputValue('ps'),
-    tz:     getInputValue('tz'),
+    unit:   unitEl.value,
+    mvg:    mvgEl.value,
+    fuel:   fuelEl.value,
+    used:   getInputValue('used'),
+    remain: getInputValue('remain'),
   };
 
   document.getElementById('btnSend').disabled = true;
@@ -1089,12 +994,9 @@ async function sendData() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    showSend('ok', `✓ Записано: екіпаж ${payload.crew} · ${payload.date}`);
-    AMMO_ALL.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    recalc();
+    showSend('ok', `✓ ${payload.unit} · ${payload.mvg} · ${payload.fuel} · ${payload.date}`);
+    saveFuel(payload.fuel);
+    FIELDS.forEach(id => { document.getElementById(id).value = ''; });
     setTimeout(loadData, 1800);
   } catch(e) {
     console.error(e);
@@ -1110,7 +1012,38 @@ function showSend(type, msg) {
   el.textContent = msg;
 }
 
-// ── Годинник ──────────────────────────────────────────
+// ── Поділитись списком відсутніх ─────────────────────
+function shareMissing() {
+  const chips = document.querySelectorAll('#missingList .missing-chip');
+  if (chips.length === 0) {
+    const ok = document.querySelector('#missingList .msg.ok');
+    if (ok) { alert('✓ Всі МВГ надали відомості'); } else { alert('Список ще не завантажено'); }
+    return;
+  }
+
+  const dateVal = document.getElementById('date').value;
+  const dateStr = isoToUa(dateVal) || todayUa ? isoToUa(dateVal) : '—';
+  const names   = Array.from(chips).map(c => '• ' + c.textContent.trim()).join('\n');
+  const count   = chips.length;
+
+  const text =
+    `⚠️ ПАЛИВО · ${dateStr}\n` +
+    `Не надали відомості (${count} МВГ):\n\n` +
+    names;
+
+  if (navigator.share) {
+    navigator.share({ text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('btnShare');
+      const orig = btn.textContent;
+      btn.textContent = '✓';
+      setTimeout(() => { btn.textContent = orig; }, 1500);
+    }).catch(() => { alert(text); });
+  }
+}
+
+// ── Годинник ─────────────────────────────────────────
 function tick() {
   const d = new Date(), p = n => String(n).padStart(2,'0');
   document.getElementById('clock').textContent =
@@ -1118,19 +1051,32 @@ function tick() {
 }
 tick(); setInterval(tick, 30000);
 
-// ── Оновлення при зміні дати ──────────────────────────
+// ── Init ─────────────────────────────────────────────
 const dateInput = document.getElementById('date');
 if (dateInput) {
+  dateInput.value = todayISO();
   dateInput.addEventListener('change', () => {
     document.getElementById('missingList').innerHTML = '<div class="msg warn">⏳ завантаження...</div>';
     loadData();
+    // Оновити вчорашній залишок для поточного МВГ
+    const mvgEl = document.getElementById('mvg');
+    if (mvgEl && mvgEl.value) fetchPrevRemain(mvgEl.value);
   });
 }
-
-// ── Init ──────────────────────────────────────────────
-if (dateInput) dateInput.value = todayISO();
-setupAutoClearOnFocus();
-recalc();
+setupAutoClear();
+// Зберігати тип пального при зміні
+(function(){
+  const fuelEl = document.getElementById('fuel');
+  if (fuelEl) fuelEl.addEventListener('change', function(){ saveFuel(this.value); });
+})();
+// Відновити тип пального
+(function(){
+  const saved = getSavedFuel();
+  if (saved) {
+    const fuelEl = document.getElementById('fuel');
+    if (fuelEl) fuelEl.value = saved;
+  }
+})();
 loadData();
 setInterval(loadData, 120000);
 </script>
